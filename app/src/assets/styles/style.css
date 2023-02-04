@@ -27,26 +27,3 @@ h1 {
   font-size: 75px;
   text-align: center;
 }
-
-.mrgnbtm {
-  margin-top: 20px;
-}
-
-.padbttm {
-  padding-bottom: 20px;
-}
-
-.btn-link {
-  padding: 0 0 0 1%;
-  color: blue;
-  border: none;
-  background-color: transparent;
-  font-size: 80%;
-}
-
-.btn-link.danger {
-  color: red;
-}
-.btn-add {
-  transform: scale(0.6);
-}
