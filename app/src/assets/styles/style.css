@@ -1,3 +1,6 @@
+* {
+  font-size: 12px;
+}
 h1 {
     background-color:green;
     font-size: 20px;
@@ -14,16 +17,5 @@ h1 {
  }
  
 h1 {
-  text-align: center;
-}
-
-.display-board {
-  width: 100%;
-  background-color: rgba(0, 119, 128, 0.719);
-}
-
-.number {
-  color: red;
-  font-size: 75px;
   text-align: center;
 }

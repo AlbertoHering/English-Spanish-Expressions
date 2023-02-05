@@ -21,16 +21,15 @@
             <div class="modal-footer">
               <slot name="footer">
                 <button class="btn btn-danger" @click="action(false)">Close</button>
-                <button type="button" @click='createExpression()' class="btn btn-primary">Create Phrase/Expression</button>
+                <button type="button" @click='createExpression(false)' class="btn btn-primary">Create</button>
+                <button type="button" @click='createExpression(true)' class="btn btn-primary">Create and Close</button>
               </slot>
             </div>
           </div>
         </div>
       </div>
     </Transition>
-    <div class="row mrgnbtm">
-      <Expressions v-if="expressions.length > 0" :expressions="expressions" />
-    </div>
+    <Expressions v-if="expressions.length > 0" :expressions="expressions" />
   </div>
 </template>
 
@@ -63,8 +62,8 @@ export default {
     action(open) {
       this.show = open
     },
-    createExpression() {
-      this.$refs.expression.createExpression()
+    createExpression(clearAndClose) {
+      this.$refs.expression.createExpression(clearAndClose)
     }
   },
   mounted() {
