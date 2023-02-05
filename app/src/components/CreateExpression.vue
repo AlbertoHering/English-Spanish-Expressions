@@ -14,7 +14,7 @@
                 </div>
                 <div class="row padbttm" v-for="(e, index) in expressions" :key="index">
                     <b-form-select :name="'type_' + index" v-model="e.type" class="form-control col-md-2">
-                        <option value="informal">Informal</option>
+                        <option value="casual">Casual</option>
                         <option value="formal">Formal</option>
                     </b-form-select>
                     <b-form-input :name="'expression_' + index" v-model="e.expression" placeholder="Phrase/Expression"
@@ -39,7 +39,7 @@
                 </div>
                 <div class="row padbttm" v-for="(e, index) in expressionsEq" :key="index">
                     <b-form-select :name="'type_' + index" v-model="e.type" class="form-control col-md-2">
-                        <option value="informal">Informal</option>
+                        <option value="casual">Casual</option>
                         <option value="formal">Formal</option>
                     </b-form-select>
                     <b-form-input :name="'expression_' + index" v-model="e.expression" placeholder="Phrase/Expression"
@@ -65,11 +65,11 @@ export default {
             prefix: '',
             expressions: [{
                 expression: "",
-                type: "informal"
+                type: "casual"
             }],
             expressionsEq: [{
                 expression: "",
-                type: "informal"
+                type: "casual"
             }],
         }
     },
@@ -97,12 +97,12 @@ export default {
             if (eq) {
                 this.expressionsEq.push({
                     expression: "",
-                    type: "informal"
+                    type: "casual"
                 })
             } else {
                 this.expressions.push({
                     expression: "",
-                    type: "informal"
+                    type: "casual"
                 })
             }
         },
