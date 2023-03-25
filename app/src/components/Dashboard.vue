@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>English-Spanish Phrases and Expressions</h1>
     <div class="container text-center">
-      <button name="close" class="btn btn-primary" @click="action(true)">Add Phrase/Expression</button>
+      <button name="close" class="btn btn-primary" @click="addExpression()">Add Phrase/Expression</button>
     </div>
     <Transition name="modal">
       <div v-if="show" class="modal-mask">
@@ -15,7 +15,7 @@
             </div>
             <div class="modal-body">
               <slot name="body">
-                <CreateExpression ref="expression" @createExpression="expressionCreate($event)" />
+                <CreateExpression ref="expression" @createExpression="expressionCreate($event)" :editExpression="editExpression" />
               </slot>
             </div>
             <div class="modal-footer">
@@ -46,11 +46,17 @@ export default {
   },
   data() {
     return {
+      item: null,
       show: false,
-      expressions: []
+      expressions: [],
+      editExpression: null
     }
   },
   methods: {
+    addExpression() {
+      this.$emit('clear')
+      this.action(true)
+    },
     getAllExpressions() {
       getAllExpressions().then(response => {
         this.expressions = response
@@ -59,11 +65,15 @@ export default {
     expressionCreate(data) {
       createExpression(data).then(() => this.getAllExpressions())
     },
+    createExpression(clearAndClose) {
+      this.$refs.expression.createExpression(clearAndClose)
+    },
     action(open) {
       this.show = open
     },
-    createExpression(clearAndClose) {
-      this.$refs.expression.createExpression(clearAndClose)
+    editExpressionTrigger(item) {
+      this.action(true)
+      this.editExpression = item
     }
   },
   mounted() {

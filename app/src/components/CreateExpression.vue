@@ -2,15 +2,9 @@
     <form>
         <div class="row padbttm">
             <div class="col-md-5">
-                <div class="row padbttm">
-                    <label htmlFor="selectLang" class="inline">Language</label>
-                    <b-form-select class="form-control col-md-3" name="selectLang" id="selectLang">
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
-                    </b-form-select>
-                </div>
                 <div class="row">
                     <label htmlFor="inputExpression">Phrase/Expression</label>
+                    <input type="hidden" v-model="id" />
                 </div>
                 <div class="row padbttm" v-for="(e, index) in expressions" :key="index">
                     <b-form-select :name="'type_' + index" v-model="e.type" class="form-control col-md-2">
@@ -58,27 +52,34 @@
 </template>
 
 <script>
+import { v1 as uuidv1 } from 'uuid'
+
 export default {
     name: 'CreateExpression',
+    props: ['editExpression'],
     data() {
         return {
-            prefix: '',
-            expressions: [{
+            id: this.editExpression ? this.editExpression.id : uuidv1(),
+            prefix: this.editExpression ? this.editExpression.prefix : '',
+            expressions: this.editExpression ? this.editExpression.expression : [{
                 expression: "",
                 type: "casual"
             }],
-            expressionsEq: [{
+            expressionsEq: this.editExpression ? this.editExpression.expressionEq : [{
                 expression: "",
                 type: "casual"
             }],
         }
     },
     methods: {
-        createExpression(clearAndClose) {
-            const payload = {
-                expression: this.expressions,
-                prefix: this.prefix,
-                expressionEq: this.expressionsEq,
+        createExpression(clearAndClose, payload) {
+            if (!payload) {
+                payload = {
+                    id: uuidv1(),
+                    expression: this.expressions,
+                    prefix: this.prefix,
+                    expressionEq: this.expressionsEq,
+                }
             }
             this.$emit('createExpression', payload)
             if (clearAndClose) {
@@ -113,6 +114,12 @@ export default {
                 this.expressions.splice(index, 1);
             }
         },
+    },
+    computed: {
+        clear() {
+            this.clearForm()
+            return true
+        }
     }
 }
 </script>

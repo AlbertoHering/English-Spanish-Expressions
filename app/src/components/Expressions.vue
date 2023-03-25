@@ -10,7 +10,8 @@
                 <span v-for="(e, i) in item.expressionEq" :key="'e'+i" :class="e.type">
                     {{ e.expression }}
                 </span>
-            </div>
+            </div>         
+            <button name="edit" type="button" class="btn btn-default btn-edit flex" @click="editExpressionTrigger(item)">Edit</button>
         </div>
     </div>
 </template>
@@ -18,7 +19,12 @@
 <script>
 export default {
     name: 'Expressions',
-    props: ['expressions']
+    props: ['expressions'],
+    methods: {
+        editExpressionTrigger(item) {
+            this.$parent.editExpressionTrigger(item)
+        }
+    }
 }
 </script>
 <style>
