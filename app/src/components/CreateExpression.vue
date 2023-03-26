@@ -75,7 +75,7 @@ export default {
         createExpression(clearAndClose, payload) {
             if (!payload) {
                 payload = {
-                    id: uuidv1(),
+                    id: this.id,
                     expression: this.expressions,
                     prefix: this.prefix,
                     expressionEq: this.expressionsEq,

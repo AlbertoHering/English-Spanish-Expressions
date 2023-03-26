@@ -10,7 +10,8 @@
           <div class="modal-container">
             <div class="modal-header">
               <slot name="header">
-                <h2>Add Phrase/Expression</h2>
+                <h2 v-if="editExpression">Edit Phrase/Expression</h2>
+                <h2 v-else>Add Phrase/Expression</h2>
               </slot>
             </div>
             <div class="modal-body">
@@ -21,8 +22,13 @@
             <div class="modal-footer">
               <slot name="footer">
                 <button class="btn btn-danger" @click="action(false)">Close</button>
-                <button type="button" @click='createExpression(false)' class="btn btn-primary">Create</button>
-                <button type="button" @click='createExpression(true)' class="btn btn-primary">Create and Close</button>
+                <template v-if="editExpression">
+                  <button type="button" @click='createExpression(true)' class="btn btn-primary">Update</button>
+                </template>
+                <template v-else>
+                  <button type="button" @click='createExpression(false)' class="btn btn-primary">Create</button>
+                  <button type="button" @click='createExpression(true)' class="btn btn-primary">Create and Close</button>
+                </template>
               </slot>
             </div>
           </div>
@@ -54,8 +60,12 @@ export default {
   },
   methods: {
     addExpression() {
-      this.$emit('clear')
       this.action(true)
+      this.editExpression = null
+    },
+    editExpressionTrigger(item) {
+      this.action(true)
+      this.editExpression = item
     },
     getAllExpressions() {
       getAllExpressions().then(response => {
@@ -63,17 +73,14 @@ export default {
       })
     },
     expressionCreate(data) {
-      createExpression(data).then(() => this.getAllExpressions())
+      createExpression(data).then((response) => this.expressions = response)
     },
     createExpression(clearAndClose) {
       this.$refs.expression.createExpression(clearAndClose)
+      this.getAllExpressions()
     },
     action(open) {
       this.show = open
-    },
-    editExpressionTrigger(item) {
-      this.action(true)
-      this.editExpression = item
     }
   },
   mounted() {

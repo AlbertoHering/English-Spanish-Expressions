@@ -10,8 +10,10 @@
                 <span v-for="(e, i) in item.expressionEq" :key="'e'+i" :class="e.type">
                     {{ e.expression }}
                 </span>
-            </div>         
-            <button name="edit" type="button" class="btn btn-default btn-edit flex" @click="editExpressionTrigger(item)">Edit</button>
+            </div>
+            <div class="edit">
+                <button name="edit" type="button" class="btn btn-default btn-edit flex" @click="editExpressionTrigger(item)">Edit</button>
+            </div>
         </div>
     </div>
 </template>
@@ -44,5 +46,20 @@ export default {
 }
 .span span.formal {
     background-color: #ced4da;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: white;
+    padding: 0 7px 2px;
+    position: relative;
+    border-radius: 5px 5px 0 0;
+    font-size: 80%;
+}
+.edit {
+    text-align: right;
+    width: 100%;
+    margin-top: -18px;
+    width: 100%;
 }
 </style>
