@@ -9,7 +9,19 @@ const fs = require('fs');
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../app/dist')));
 
-app.get('/api/expressions', (req, res) => res.json(readJson()));
+app.get('/api/expressions', (req, res) => {
+  let expressions = readJson();
+  if (req.query.q) {
+    expressions = expressions.filter(exp => {
+      if (exp.expression.find(e=>e.expression.includes(req.query.q))
+        || exp.expressionEq.find(e=>e.expression.includes(req.query.q))
+      ) {
+        return exp
+      }
+    });
+  }
+  res.json(expressions)
+});
 
 app.post('/api/expression', (req, res) => {
   const expression = req.body;

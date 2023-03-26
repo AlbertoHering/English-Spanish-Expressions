@@ -1,6 +1,5 @@
-export async function getAllExpressions() {
-
-    const response = await fetch('/api/expressions');
+export async function getAllExpressions(search) {
+    const response = await fetch('/api/expressions/?q='+search);
     return await response.json();
 }
 

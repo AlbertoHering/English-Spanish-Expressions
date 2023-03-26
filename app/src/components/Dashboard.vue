@@ -1,9 +1,6 @@
 <template>
   <div class="hello">
     <h1>English-Spanish Phrases and Expressions</h1>
-    <div class="container text-center">
-      <button name="close" class="btn btn-primary" @click="addExpression()">Add Phrase/Expression</button>
-    </div>
     <Transition name="modal">
       <div v-if="show" class="modal-mask">
         <div class="modal-wrapper">
@@ -35,6 +32,20 @@
         </div>
       </div>
     </Transition>
+    <div class="container text-center">
+      <div class="row padbttm">
+        <div class="col-md-10">
+          <div class="row">
+            <label htmlFor="inputExpression">Search</label>
+            <b-form-input v-model="search" type="text" />
+          </div>
+        </div>
+        <div class="col-md-2">
+            <label htmlFor="inputExpression">&nbsp; ...</label>
+          <button name="close" class="btn btn-primary" @click="addExpression()">Add Phrase/Expression</button>
+        </div>
+      </div>
+    </div>
     <Expressions v-if="expressions.length > 0" :expressions="expressions" />
   </div>
 </template>
@@ -55,7 +66,8 @@ export default {
       item: null,
       show: false,
       expressions: [],
-      editExpression: null
+      editExpression: null,
+      search: ''
     }
   },
   methods: {
@@ -67,8 +79,8 @@ export default {
       this.action(true)
       this.editExpression = item
     },
-    getAllExpressions() {
-      getAllExpressions().then(response => {
+    getAllExpressions(search) {
+      getAllExpressions(search?search:'').then(response => {
         this.expressions = response
       })
     },
@@ -85,6 +97,11 @@ export default {
   },
   mounted() {
     this.getAllExpressions();
+  },
+  watch: {
+    search() {
+      return this.getAllExpressions(this.search)
+    }
   }
 }
 </script>
