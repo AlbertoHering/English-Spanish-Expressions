@@ -37,11 +37,10 @@
         <div class="col-md-10">
           <div class="row">
             <label htmlFor="inputExpression">Search</label>
-            <b-form-input v-model="search" type="text" />
+            <b-form-input name="search" v-model="search"></b-form-input>
           </div>
         </div>
-        <div class="col-md-2">
-            <label htmlFor="inputExpression">&nbsp; ...</label>
+        <div class="col-md-2" style="padding-top:22px;">
           <button name="close" class="btn btn-primary" @click="addExpression()">Add Phrase/Expression</button>
         </div>
       </div>

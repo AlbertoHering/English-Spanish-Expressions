@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.2",
-    "bootstrap-vue": "^2.16.0",
+    "bootstrap-vue": "^2.2.2",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "uuid": "^8.3.2"
@@ -41,5 +41,10 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "proxy": {
+      "/api":  {
+          "target": "http://api:8080"
+      }
+  }
 }

@@ -3,7 +3,7 @@ const path = require('path');
 const app = express(),
       bodyParser = require("body-parser"),
       port = 3080;
-const expressionsFile = './expressions.json';
+const expressionsFile = 'expressions.json';
 const fs = require('fs');
 
 app.use(bodyParser.json());
@@ -13,8 +13,10 @@ app.get('/api/expressions', (req, res) => {
   let expressions = readJson();
   if (req.query.q) {
     expressions = expressions.filter(exp => {
-      if (exp.expression.find(e=>e.expression.includes(req.query.q))
-        || exp.expressionEq.find(e=>e.expression.includes(req.query.q))
+      const query = req.query.q.toLowerCase()
+      if (
+        exp.expression.find(e => e.expression.toLowerCase().includes(query))
+        || exp.expressionEq.find(e=>e.expression.toLowerCase().includes(query))
       ) {
         return exp
       }
@@ -30,14 +32,14 @@ app.post('/api/expression', (req, res) => {
     expressions = expressions.filter(exp => exp.id !== expression.id);
   }
   expressions.push(expression);
-  if (writeJson(expressions)) {
+  if (setTimeout(() => writeJson(expressions), 1)) {
     res.json(expressions);
   }
 });
 
 function readJson() {
   if (fs.existsSync(expressionsFile)) {
-    return JSON.parse(fs.readFileSync(expressionsFile, 'utf8'));
+    return JSON.parse(fs.readFileSync(expressionsFile, { encoding: 'utf8' }));
   } else {
     return [];
   }
@@ -45,7 +47,7 @@ function readJson() {
 
 function writeJson(expressions) {
   let data = JSON.stringify(expressions);
-  fs.writeFileSync(expressionsFile, data, 'utf-8', function (err) {
+  fs.writeFileSync(expressionsFile, data, { encoding: 'utf8' }, function (err) {
     return !err;
   });
 }

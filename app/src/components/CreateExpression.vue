@@ -25,7 +25,7 @@
             <div class="col-md-5">
                 <div class="row padbttm">
                     <label htmlFor="inputPrefix" class="inline">Prefix</label>
-                    <b-form-input type="text" class="form-control col-md-6" v-model="prefix" name="inputPrefix" id="inputPrefix"
+                    <b-form-input name="inputPrefix" type="text" class="form-control col-md-6" v-model="prefix" id="inputPrefix"
                         placeholder="Prefix" />
                 </div>
                 <div class="row">
