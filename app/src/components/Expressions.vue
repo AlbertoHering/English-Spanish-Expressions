@@ -56,6 +56,11 @@ export default {
     border-radius: 5px 5px 0 0;
     font-size: 80%;
 }
+    .btn-edit:hover {
+        color: #fff;
+        background-color: #0069d9;
+        border-color: #0062cc;
+    }
 .edit {
     text-align: right;
     width: 100%;
