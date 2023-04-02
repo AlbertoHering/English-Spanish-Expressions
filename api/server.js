@@ -22,6 +22,7 @@ app.get('/api/expressions', (req, res) => {
       }
     });
   }
+  expressions.sort((a, b) => a.expression[0].expression.localeCompare(b.expression[0].expression));
   res.json(expressions)
 });
 
@@ -32,9 +33,11 @@ app.post('/api/expression', (req, res) => {
     expressions = expressions.filter(exp => exp.id !== expression.id);
   }
   expressions.push(expression);
-  if (setTimeout(() => writeJson(expressions), 1)) {
-    res.json(expressions);
-  }
+  expressions.sort((a, b) => a.expression[0].expression.localeCompare(b.expression[0].expression));
+  setTimeout(() => {
+    writeJson(expressions);
+    res.json(expressions, 200);
+  }, 100);
 });
 
 function readJson() {

@@ -79,9 +79,7 @@ export default {
       this.editExpression = item
     },
     getAllExpressions(search) {
-      getAllExpressions(search?search:'').then(response => {
-        this.expressions = response
-      })
+      getAllExpressions(search?search:'').then(response => this.expressions = response)
     },
     expressionCreate(data) {
       createExpression(data).then((response) => this.expressions = response)
