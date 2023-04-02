@@ -17,6 +17,7 @@ app.get('/api/expressions', (req, res) => {
       if (
         exp.expression.find(e => e.expression.toLowerCase().includes(query))
         || exp.expressionEq.find(e=>e.expression.toLowerCase().includes(query))
+        || exp.tags.toLowerCase().includes(query)
       ) {
         return exp
       }

@@ -1,5 +1,9 @@
 <template>
     <div class="container span">
+        <div class="row">
+            <div class="col-md-6"><h4>ENGLISH</h4></div>
+            <div class="col-md-6"><h4>SPANISH</h4></div>
+        </div>
         <div v-for="item in expressions" :key="item.id" class="row">
             <div class="col-md-6">
                 <span v-for="(e, i) in item.expression" :key="i" :class="e.type" class="">
@@ -66,5 +70,8 @@ export default {
     width: 100%;
     margin-top: -18px;
     width: 100%;
+}
+h4 {
+    color: green;
 }
 </style>

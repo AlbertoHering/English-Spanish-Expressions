@@ -2,6 +2,11 @@
     <form>
         <div class="row padbttm">
             <div class="col-md-5">
+                <div class="row padbttm">
+                    <label htmlFor="inputTags" class="inline">Tags</label>
+                    <b-form-input name="inputTags" type="text" class="form-control col-md-9" v-model="tags" id="inputTags"
+                        placeholder="Tags" /><span><em>(comma separated)</em></span>
+                </div>
                 <div class="row">
                     <label htmlFor="inputExpression">Phrase/Expression</label>
                     <input type="hidden" v-model="id" />
@@ -60,6 +65,7 @@ export default {
     data() {
         return {
             id: this.editExpression ? this.editExpression.id : uuidv1(),
+            tags: this.editExpression ? this.editExpression.tags : '',
             prefix: this.editExpression ? this.editExpression.prefix : '',
             expressions: this.editExpression ? this.editExpression.expression : [{
                 expression: "",
@@ -76,23 +82,29 @@ export default {
             if (!payload) {
                 payload = {
                     id: this.id,
+                    tags: this.tags,
                     expression: this.expressions,
                     prefix: this.prefix,
                     expressionEq: this.expressionsEq,
                 }
             }
             this.$emit('createExpression', payload)
+            this.clearForm()
             if (clearAndClose) {
-                this.clearForm()
                 this.$parent.show = false
             }
         },
         clearForm() {
-            this.expressions = this.expressionsEq = [{
+            this.expressions = [{
                 expression: "",
                 type: ""
             }],
-            this.prefix = ""
+            this.expressionsEq = [{
+                expression: "",
+                type: ""
+            }],
+            this.tags = ''
+            this.prefix = ''
         },
         addAnother(eq) {
             if (eq) {
@@ -169,5 +181,11 @@ label.inline {
 }
 label {
     margin-right: 10px;
+}
+em {
+    color: gray;
+    position: relative;
+    top: 5px;
+    left: 5px;
 }
 </style>
